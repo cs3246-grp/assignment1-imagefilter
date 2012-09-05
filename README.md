@@ -1,6 +1,7 @@
 assignment1-imagefilter
 =======================
 This is the assignment of CS3246, SoC, NUS
+
 We will implement image filters in 5 categories as below:
 
 Category 1: Theme based to transform a photo to different themes such as oldie,festival, or warm, cold etc..
