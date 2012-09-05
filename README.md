@@ -11,4 +11,5 @@ Category 3: HDR picture that inputs multiple photos of same scene but withdiffer
 
 Category 4: Combination of filters, by combining 2 or more filters injsmanipulate to produce a new filter with better feel (subjective) or special
 effects.
+
 Category 5: Produces photos of different styles such as van Gogh or oil-painting styles etc.
