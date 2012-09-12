@@ -2,7 +2,7 @@ package cs3246.as1.bean;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-public class Image {
+public class uploadItem{
 	private String filename;
 	private CommonsMultipartFile fileData;
 

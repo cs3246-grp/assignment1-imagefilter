@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletConfig;
 import java.io.FileOutputStream;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import javax.servlet.http.*;
-import cs3246.as1.bean.Image;
+import cs3246.as1.bean.uploadItem;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -34,12 +35,12 @@ public class UploadController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getUploadForm(Model model) {
-		model.addAttribute(new Image());
-		return "/uploadfile";
+		model.addAttribute(new uploadItem());
+		return "uploadfile";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String create(Image uploadItem, BindingResult result,
+	public String create(uploadItem uploadItem, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) {
 		if (result.hasErrors()) {
@@ -47,7 +48,7 @@ public class UploadController {
 				System.err.println("Error: " + error.getCode() + " - "
 						+ error.getDefaultMessage());
 			}
-			return "/uploadfile";
+			return "uploadfile";
 		}
 
 		// Some type of file processing...
@@ -59,13 +60,15 @@ public class UploadController {
 			OutputStream outputStream = null;
 			if (file.getSize() > 0) {
 				inputStream = file.getInputStream();
-				if (file.getSize() > 10000) {
+				if (file.getSize() > 1000000) {
 					System.out.println("File Size:::" + file.getSize());
-					return "/uploadfile";
+					return "uploadfile";
 				}
 				System.out.println("size::" + file.getSize());
-				fileName = request.getSession().getServletContext().getRealPath("") + "/images/"
-						+ file.getOriginalFilename();
+				fileName = request.getSession().getServletContext().getRealPath("") + "/WEB-INF/images/"
+						+ "image";
+				File fout = new File(fileName);
+				if (!fout.exists()) fout.createNewFile();
 				outputStream = new FileOutputStream(fileName);
 				System.out.println("fileName:" + file.getOriginalFilename());
 
@@ -83,7 +86,7 @@ public class UploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/uploadfileindex";
+		return "redirect:/forms/uploadfileindex";
 	}
 
 }

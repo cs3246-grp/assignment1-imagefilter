@@ -8,7 +8,7 @@
 <title>Welcome</title>
 </head>
 <body>
-<h2><a href="uploadfile.jsp">Upload Example</a></h2>
+<h2><a href="uploadfile.jsp">Upload An Image</a></h2>
 <br>
 <br>
 <br>
@@ -20,9 +20,8 @@
 <h3>Uploaded File</h3>
 <br>
 <img
-	src="<%=request.getRealPath("/") + "/images/"
-						+ session.getAttribute("uploadFile")%>"
-	alt="Upload Image" />
+	src="<%="/assignment1-imagefilter/forms/image/image"%>"
+/>
 <%
 	session.removeAttribute("uploadFile");
 	}
