@@ -4,6 +4,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class uploadItem{
 	private String filename;
+	private String filterType;
 	private CommonsMultipartFile fileData;
 
 	public String getFilename() {
@@ -20,5 +21,13 @@ public class uploadItem{
 
 	public void setFileData(CommonsMultipartFile fileData) {
 		this.fileData = fileData;
+	}
+
+	public String getFilterType() {
+		return filterType;
+	}
+
+	public void setFilterType(String filterType) {
+		this.filterType = filterType;
 	}
 }

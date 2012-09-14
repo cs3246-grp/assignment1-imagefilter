@@ -3,6 +3,7 @@ package cs3246.as1.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -40,7 +41,7 @@ public class UploadController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String create(uploadItem uploadItem, BindingResult result,
+	public @ResponseBody String create(uploadItem uploadItem, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) {
 		if (result.hasErrors()) {
@@ -86,7 +87,7 @@ public class UploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/forms/uploadfileindex";
+		return "uploadfile";
 	}
 
 }
