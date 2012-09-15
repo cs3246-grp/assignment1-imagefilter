@@ -1,51 +1,74 @@
 <%@page contentType="text/html;charset=UTF-8"%>
 <%@page pageEncoding="UTF-8"%>
-<%@ page session="false"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 
 <html>
 <head>
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <title>Upload Example</title>
-<script type="text/javascript" src="<c:url value="/misc/js/jquery.js" />"></script>
-<script type="text/javascript" src="<c:url value="/misc/js/submit.js" />"></script>
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-<script src="<c:url value="/misc/js/jquery.fileupload.js" />"></script>
-<script src="<c:url value="/misc/js/jquery.iframe-transport.js" />"></script>
+<script type="text/javascript" src="<c:url value="/misc/js//jquery-1.8.1.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/misc/js/jquery-ui-1.8.16.custom.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/misc/js/util.js" />"></script>
+<script type="text/javascript" src="<c:url value="/misc/js/jquery-fileupload/vendor/jquery.ui.widget.js" />"></script>
+<script type="text/javascript" src="<c:url value="/misc/js/jquery-fileupload/jquery.iframe-transport.js" />"></script>
+<script type="text/javascript" src="<c:url value="/misc/js/jquery-fileupload/jquery.fileupload.js" />"></script>
+<script type="text/javascript" src="<c:url value="/misc/js/jquery.json-2.3.min.js" />"></script>
+
+<script type="text/javascript">
+$(function() {
+	init();
+});
+
+function init() {
+	$('#uploadForm').submit(function(event) {
+		event.preventDefault();
+
+		$.post('./uploadfile/filter', 
+				{filtertype:$('#filtertype').val()},
+				function(result) {
+					if (result == 'SUCCESS') {
+						$('#preview').attr('src','./image/erd.jpg');
+					}
+					alert(result);
+				})
+
+		/*$.postJSON('./uploadfile/filter', {
+			filtertype: $('#filtertype').val(),
+		},
+		function(result) {
+			alert(result);
+		})*/
+	})
+
+	$('#upload').fileupload({
+		dataType: 'image',
+		change: function (e, data) {
+			$.each(data.files, function(index, file) {
+				$('#preview').attr('src','./image/'+file.name)
+					.width(400);
+			})
+		}
+	})
+}
+</script>
 </head>
 <body>
-<form:form modelAttribute="uploadItem" id="uploadform" name="frm" enctype="multipart/form-data">
-	<fieldset><legend>Upload File</legend>
-	<table id='form'>
-		<tr>                                                                                   
-			<td><form:label for="fileData" path="fileData">File</form:label><br />
-			</td>
-			<td><form:input path="fileData" id="image" type="file" onchange="readURL(this);" /></td>
-		</tr>
-		<tr>
-			<td><form:label path="fileData">Filter</form:label><br />
-			</td>
-			<td>
-				<form:select path="filterType" name="filterType">
-					<form:option value="volvo">Volvo</form:option>
-					<form:option value="saab">Saab</form:option>
-					<form:option value="fiat">Fiat</form:option>
-					<form:option value="audi">Audi</form:option>
-				</form:select>
-			</td>
-		</tr>
-		<tr>
-			<td><br />
-			</td>
-			<td><button class="button" type="submit">Apply Filter</button></td>
-		</tr>
-		
-	</table>
+<form id='uploadForm'>
+	<fieldset>
+		<legend>Image</legend>
+		<label for='upload'>Choose a image:</label>
+		<input id="upload" type="file" name="file" data-url="./uploadfile" >
+		<br />
+		<select id='filtertype'>
+			<option value='blur'>blur</option>
+			<option value='hdr'>HDR</option>
+			<option value='bw'>B/W</option>
+		</select>
+		<br />
+		<input type='submit' value='Upload' id='submit' />
 	</fieldset>
-</form:form>
+</form>
 <div>
 	<img id="preview" />
 </div>

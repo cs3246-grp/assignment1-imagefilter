@@ -26,14 +26,14 @@ function readURL(input) {
     }
 }
 
-$(document).ready(function() {
-	var preview = $('#preview');
+$("#attach").click(function () {
+	alert('clicked!');
+    $("#upload").trigger('click');
+});
 
-	new AjaxUpload('uploadform', {
-		method:'post',
-		onSubmit: Validate(),
-		onComplete: function(file, response) {
-			preview.attr('src',response);
-		}
-	})
-})
+/*$('#upload').fileupload({
+    dataType: 'json',
+    done: function (e, data) {
+     	alert('file uploaded');
+    }
+});*/

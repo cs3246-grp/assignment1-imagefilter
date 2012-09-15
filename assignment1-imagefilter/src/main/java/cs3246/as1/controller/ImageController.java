@@ -19,7 +19,7 @@ public class ImageController {
 	public byte[] getImage(@PathVariable String imageName,HttpServletRequest request) {
 		String filePath = request.getSession().getServletContext()
 				.getRealPath("")
-				+ "/WEB-INF/images/" + imageName;
+				+ "/WEB-INF/images/" + imageName+".jpg";
 		File file = new File(filePath);
 		byte fileContent[] = new byte[(int)file.length()];
 		try {
