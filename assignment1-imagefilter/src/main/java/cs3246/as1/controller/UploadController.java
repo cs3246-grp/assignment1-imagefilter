@@ -15,6 +15,8 @@ import java.io.FileOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import cs3246.as1.bean.uploadItem;
 import cs3246.as1.service.FilterService;
@@ -49,7 +51,7 @@ public class UploadController {
 	public void uploadImage(@RequestParam("file") MultipartFile file) {
 		System.out.println("into update controller");
 		uploadFolderPath = "/Users/popol/git/assignment1-imagefilter/assignment1-imagefilter/src/main/webapp/WEB-INF/images/";
-		imageName = file.getOriginalFilename();
+		imageName=file.getOriginalFilename();
 		try { if (file.getSize()>0) {
 			String filePath = uploadFolderPath+file.getOriginalFilename();
 			File fout = new File(filePath);
@@ -75,7 +77,7 @@ public class UploadController {
 	
 	@RequestMapping(value = "filter", method = RequestMethod.POST)
 	public @ResponseBody String doFilter(@RequestBody String filtertype) {
-		
-		return filterService.message();
+		String type = filtertype.split("=")[1];
+		return filterService.filterImage(imageName,type);
 	}
 }

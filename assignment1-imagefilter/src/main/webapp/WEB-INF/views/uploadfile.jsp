@@ -27,26 +27,15 @@ function init() {
 		$.post('./uploadfile/filter', 
 				{filtertype:$('#filtertype').val()},
 				function(result) {
-					if (result == 'SUCCESS') {
-						$('#preview').attr('src','./image/erd.jpg');
-					}
-					alert(result);
+					$('#afterFilter').attr('src','./image/'+result).width(400);
 				})
-
-		/*$.postJSON('./uploadfile/filter', {
-			filtertype: $('#filtertype').val(),
-		},
-		function(result) {
-			alert(result);
-		})*/
 	})
 
 	$('#upload').fileupload({
 		dataType: 'image',
 		change: function (e, data) {
 			$.each(data.files, function(index, file) {
-				$('#preview').attr('src','./image/'+file.name)
-					.width(400);
+				$('#preview').attr('src','./image/'+file.name).width(400);
 			})
 		}
 	})
@@ -62,15 +51,18 @@ function init() {
 		<br />
 		<select id='filtertype'>
 			<option value='blur'>blur</option>
-			<option value='hdr'>HDR</option>
-			<option value='bw'>B/W</option>
+			<option value='compound'>oil and old</option>
+			<option value='lomo'>lomo</option>
+			<option value='oil'>oil</option>
+			<option value='old'>old</option>
 		</select>
 		<br />
-		<input type='submit' value='Upload' id='submit' />
+		<input type='submit' value='apply' id='submit' />
 	</fieldset>
 </form>
 <div>
-	<img id="preview" />
+	<img id='preview' />
+	<img id='afterFilter' />
 </div>
 </body>
 </html>

@@ -94,4 +94,9 @@ public abstract class AbstractBufferedImageOp implements BufferedImageOp, Clonea
 			return null;
 		}
 	}
+
+	public BufferedImage filter(BufferedImage src, BufferedImage dest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
